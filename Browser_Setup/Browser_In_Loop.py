@@ -1,4 +1,3 @@
-# Importing required modules from Selenium
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
@@ -8,8 +7,9 @@ options = Options()
 # Add experimental option to keep the browser open after the script ends
 options.add_experimental_option("detach", True)
 
-# Create a Chrome WebDriver instance with the defined options
-driver = webdriver.Chrome(options=options)
+# Initiate the browser open one by one
+Browser_List=[webdriver.Chrome(options=options),webdriver.Firefox(),webdriver.Edge()]
 
-# Open the Facbook website
-driver.get("https://facebook.com/")
+for driver in Browser_List:
+    driver.maximize_window()
+    driver.get("https://facebook.com/")
