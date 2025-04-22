@@ -1,2 +1,180 @@
-1) What is selenium?
-Ans. 
+## Introduction to Selenium
+
+Selenium is a popular open-source automation tool used for automating web applications for testing purposes. It supports various programming languages including Python.
+
+## Features of Selenium
+
+- **Language Support**: Python, Java, C#, Ruby, etc.
+- **Browser Compatibility**: Chrome, Firefox, Safari, Edge, IE
+- **Components**:
+  - Selenium IDE
+  - Selenium WebDriver
+  - Selenium Grid
+- **Testing Capabilities**: Functional, Regression, Load Testing
+
+## Selenium Components
+
+### Selenium IDE
+Browser extension for quick test recording and playback.
+
+### Selenium WebDriver
+Core component to write automation scripts using Python.
+
+```python
+from selenium import webdriver
+driver = webdriver.Chrome()
+driver.get("https://example.com")
+```
+
+### Selenium Grid
+Used for running tests on different machines and browsers in parallel.
+
+## Advantages of Selenium
+
+- Open-source
+- Cross-browser support
+- Supports multiple programming languages
+- Reusable test scripts
+
+## Disadvantages of Selenium
+
+- No support for desktop apps
+- Difficult to handle CAPTCHAs or barcodes
+- Slower execution compared to some tools
+- Issues with dynamic content
+
+## Locators in Selenium
+
+```python
+from selenium.webdriver.common.by import By
+
+driver.find_element(By.ID, "id")
+driver.find_element(By.NAME, "name")
+driver.find_element(By.CLASS_NAME, "class")
+driver.find_element(By.TAG_NAME, "tag")
+driver.find_element(By.LINK_TEXT, "text")
+driver.find_element(By.PARTIAL_LINK_TEXT, "partial text")
+driver.find_element(By.XPATH, "//tag[@attr='value']")
+driver.find_element(By.CSS_SELECTOR, "tag#id" or ".class" or "[attr='value']")
+```
+
+## WebDriver Methods
+
+```python
+driver.title
+driver.current_url
+driver.page_source
+driver.window_handles
+driver.current_window_handle
+driver.close()
+driver.quit()
+```
+
+## Waits in Selenium
+
+### Implicit Wait
+
+```python
+driver.implicitly_wait(10)
+```
+
+### Explicit Wait
+
+```python
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+wait = WebDriverWait(driver, 10)
+element = wait.until(EC.visibility_of_element_located((By.ID, "id")))
+```
+
+### Fluent Wait (with WebDriverWait + custom polling)
+
+## Checkbox Handling
+
+```python
+checkbox = driver.find_element(By.ID, "checkbox")
+checkbox.click()
+checkbox.is_selected()
+```
+
+## Dropdowns
+
+```python
+from selenium.webdriver.support.ui import Select
+
+select = Select(driver.find_element(By.ID, "dropdown"))
+select.select_by_visible_text("Option")
+select.select_by_value("value")
+select.select_by_index(2)
+```
+
+## Alerts
+
+```python
+alert = driver.switch_to.alert
+alert.accept()
+alert.dismiss()
+alert.send_keys("Input")
+```
+
+## Frames
+
+```python
+driver.switch_to.frame("frame_id")
+driver.switch_to.default_content()
+```
+
+## Mouse & Keyboard Events
+
+```python
+from selenium.webdriver import ActionChains
+from selenium.webdriver.common.keys import Keys
+
+actions = ActionChains(driver)
+actions.click(element).perform()
+actions.double_click(element).perform()
+actions.context_click(element).perform()
+actions.move_to_element(element).perform()
+actions.drag_and_drop(source, target).perform()
+
+element.send_keys("Text" + Keys.ENTER)
+```
+
+## Screenshots
+
+```python
+driver.save_screenshot("screenshot.png")
+```
+
+## File Upload
+
+```python
+file_input = driver.find_element(By.NAME, "upload")
+file_input.send_keys("C:/path/to/file.png")
+```
+
+## Date Picker
+
+```python
+date_input = driver.find_element(By.ID, "datepicker")
+date_input.send_keys("04/22/2025")
+```
+
+## Web Tables
+
+```python
+table = driver.find_element(By.ID, "table_id")
+rows = table.find_elements(By.TAG_NAME, "tr")
+for row in rows:
+    cells = row.find_elements(By.TAG_NAME, "td")
+    for cell in cells:
+        print(cell.text)
+```
+
+## Scrolling
+
+```python
+driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+driver.execute_script("arguments[0].scrollIntoView();", element)
+```
