@@ -1,6 +1,9 @@
-## Introduction to Selenium
+========================================================================================================================
+************************************************************************************************************************
+############################################### Introduction to Selenium ###############################################
 
-Selenium is a popular open-source automation tool used for automating web applications for testing purposes. It supports various programming languages including Python.
+Selenium is a popular open-source automation tool used for automating web applications for testing purposes.
+It supports various programming languages including Python. Java,Javascript,Ruby etc...
 
 ## Features of Selenium
 
@@ -18,7 +21,7 @@ Selenium is a popular open-source automation tool used for automating web applic
 Browser extension for quick test recording and playback.
 
 ### Selenium WebDriver
-Core component to write automation scripts using Python.
+Core component to write automation scripts using various language.
 
 ```python
 from selenium import webdriver
@@ -43,138 +46,68 @@ Used for running tests on different machines and browsers in parallel.
 - Slower execution compared to some tools
 - Issues with dynamic content
 
-## Locators in Selenium
+========================================================================================================================
+************************************************************************************************************************
+======================================================== Selenium WebDriver ============================================
+✅ What is WebDriver?
+----------------------
+- WebDriver is a component of Selenium that allows us to interact with web browsers.
+- It acts as a module in Selenium used to control browser actions like clicking buttons, entering text, etc.
+- It is also an API (Application Programming Interface) that connects your test scripts with the browser.
 
-```python
-from selenium.webdriver.common.by import By
+🖥️ Examples of WebDriver Initialization:
+-----------------------------------------
+from selenium import webdriver
 
-driver.find_element(By.ID, "id")
-driver.find_element(By.NAME, "name")
-driver.find_element(By.CLASS_NAME, "class")
-driver.find_element(By.TAG_NAME, "tag")
-driver.find_element(By.LINK_TEXT, "text")
-driver.find_element(By.PARTIAL_LINK_TEXT, "partial text")
-driver.find_element(By.XPATH, "//tag[@attr='value']")
-driver.find_element(By.CSS_SELECTOR, "tag#id" or ".class" or "[attr='value']")
-```
+driver = webdriver.Chrome()     # For Chrome Browser
+driver = webdriver.Firefox()    # For Firefox Browser
+driver = webdriver.Edge()       # For Edge Browser
 
-## WebDriver Methods
+🧠 WebDriver Architecture
+---------------------------
+Selenium 3:
+-----------
+Selenium Language Bindings
+        ↓
+JSON Wire Protocol
+        ↓
+Browser Drivers
+        ↓
+Browsers
 
-```python
-driver.title
-driver.current_url
-driver.page_source
-driver.window_handles
-driver.current_window_handle
-driver.close()
-driver.quit()
-```
+Selenium 4:
+-----------
+Selenium Language Bindings
+        ↓
+W3C WebDriver Protocol
+        ↓
+Browser Drivers
+        ↓
+Browsers
 
-## Waits in Selenium
+🔍 Note: Selenium 4 uses the W3C standard for better browser compatibility.
 
-### Implicit Wait
+⚙️ Setup & Configuration of Selenium WebDriver in PyCharm
+----------------------------------------------------------
+✅ Pre-requisites:
+- Python installed
+- PyCharm installed
 
-```python
-driver.implicitly_wait(10)
-```
+✅ Installation Methods:
+Approach 1: Using pip
+----------------------
+pip install selenium
 
-### Explicit Wait
+Approach 2: Using PyCharm
+--------------------------
+- Go to File > Settings > Project > Python Interpreter
+- Click +, search for selenium, and install it.
+========================================================================================================================
+************************************************************************************************************************
+================================================ Locators in Selenium ==================================================
 
-```python
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
-wait = WebDriverWait(driver, 10)
-element = wait.until(EC.visibility_of_element_located((By.ID, "id")))
-```
 
-### Fluent Wait (with WebDriverWait + custom polling)
 
-## Checkbox Handling
 
-```python
-checkbox = driver.find_element(By.ID, "checkbox")
-checkbox.click()
-checkbox.is_selected()
-```
 
-## Dropdowns
-
-```python
-from selenium.webdriver.support.ui import Select
-
-select = Select(driver.find_element(By.ID, "dropdown"))
-select.select_by_visible_text("Option")
-select.select_by_value("value")
-select.select_by_index(2)
-```
-
-## Alerts
-
-```python
-alert = driver.switch_to.alert
-alert.accept()
-alert.dismiss()
-alert.send_keys("Input")
-```
-
-## Frames
-
-```python
-driver.switch_to.frame("frame_id")
-driver.switch_to.default_content()
-```
-
-## Mouse & Keyboard Events
-
-```python
-from selenium.webdriver import ActionChains
-from selenium.webdriver.common.keys import Keys
-
-actions = ActionChains(driver)
-actions.click(element).perform()
-actions.double_click(element).perform()
-actions.context_click(element).perform()
-actions.move_to_element(element).perform()
-actions.drag_and_drop(source, target).perform()
-
-element.send_keys("Text" + Keys.ENTER)
-```
-
-## Screenshots
-
-```python
-driver.save_screenshot("screenshot.png")
-```
-
-## File Upload
-
-```python
-file_input = driver.find_element(By.NAME, "upload")
-file_input.send_keys("C:/path/to/file.png")
-```
-
-## Date Picker
-
-```python
-date_input = driver.find_element(By.ID, "datepicker")
-date_input.send_keys("04/22/2025")
-```
-
-## Web Tables
-
-```python
-table = driver.find_element(By.ID, "table_id")
-rows = table.find_elements(By.TAG_NAME, "tr")
-for row in rows:
-    cells = row.find_elements(By.TAG_NAME, "td")
-    for cell in cells:
-        print(cell.text)
-```
-
-## Scrolling
-
-```python
-driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-driver.execute_script("arguments[0].scrollIntoView();", element)
-```
