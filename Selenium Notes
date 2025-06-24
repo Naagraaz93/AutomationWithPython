@@ -1,5 +1,6 @@
 ========================================================================================================================
 ************************************************************************************************************************
+
 ############################################### Introduction to Selenium ###############################################
 
 Selenium is a popular open-source automation tool used for automating web applications for testing purposes.
@@ -48,6 +49,7 @@ Used for running tests on different machines and browsers in parallel.
 
 ========================================================================================================================
 ************************************************************************************************************************
+
 ======================================================== Selenium WebDriver ============================================
 ✅ What is WebDriver?
 ----------------------
@@ -102,12 +104,279 @@ Approach 2: Using PyCharm
 --------------------------
 - Go to File > Settings > Project > Python Interpreter
 - Click +, search for selenium, and install it.
+
 ========================================================================================================================
 ************************************************************************************************************************
+
 ================================================ Locators in Selenium ==================================================
 
+What are Locators?
+- Locators help Selenium find and interact with elements on a web page.
+- Think of them as the addresses or unique identifiers for web elements.
 
+Types of Locators:
+Locator Type         | Example Code
+---------------------|-----------------------------------------------
+id                   | driver.find_element(By.ID, "search_box")
+name                 | driver.find_element(By.NAME, "username")
+link text            | driver.find_element(By.LINK_TEXT, "Login")
+partial link text    | driver.find_element(By.PARTIAL_LINK_TEXT, "Log")
+class name           | driver.find_element(By.CLASS_NAME, "input-box")
+tag name             | all_links = driver.find_elements(By.TAG_NAME, "a")
+CSS selector         | See CSS examples below
+XPath                | See XPath examples below
 
+Example Website:
+URL: https://www.flipkart.com
 
+Examples:
 
+1. ID:
+driver.find_element(By.ID, "twotabsearchtextbox").send_keys("laptop")
 
+2. Name:
+driver.find_element(By.NAME, "q").send_keys("smartphone")
+
+3. Link Text / Partial Link Text:
+driver.find_element(By.LINK_TEXT, "Login").click()
+driver.find_element(By.PARTIAL_LINK_TEXT, "Log").click()
+
+4. Class Name:
+sliders = banners = driver.find_elements(By.CLASS_NAME, "_2nQDXZ")
+print(len(sliders))
+
+5. Tag Name:
+links = all_links = driver.find_elements(By.TAG_NAME, "a")
+print(len(links))
+
+CSS Selectors:
+Selector Type        | Syntax Example
+---------------------|---------------------------------------------------
+Tag + ID             | input#inputUsername
+Tag + Class          | input._2IX_2-
+Tag + Attribute      | input[name=q]
+Tag + Class + Attr   | input._2IX_2-[data-testid=royal_email]
+
+CSS Examples:
+driver.find_element(By.CSS_SELECTOR, "#inputUsername").send_keys("abc@gmail.com")
+driver.find_element(By.CSS_SELECTOR, "input._2IX_2-").send_keys("abc@gmail.com")
+
+XPath:
+- XPath is used to locate elements based on their XML/HTML structure.
+- Two types: Absolute and Relative.
+
+Absolute XPath:
+Starts from the root (not recommended for dynamic pages):
+/html/body/div[1]/div/header/div[3]/div/div/div/a/img
+
+Relative XPath:
+Starts from anywhere in the document (preferred):
+//img[@class='logo img-responsive']
+
+XPath Syntax:
+//tagname[@attribute='value']
+
+Dynamic XPath Examples:
+
+Using OR:
+driver.find_element(By.XPATH, "//input[@name='org' or @placeholder='Org']")
+
+Using AND:
+driver.find_element(By.XPATH, "//input[@name='name' and @placeholder='Full Name*']")
+
+Using contains():
+driver.find_element(By.XPATH, "//a[contains(text(), 'Test')]")
+
+Using starts-with():
+driver.find_element(By.XPATH, "//a[starts-with(text(), 'Start')]")
+
+Using text():
+driver.find_element(By.XPATH, "//a[text()='Pricing']")
+
+XPath Axes:
+
+Axis                | Description                                  | Syntax Example
+--------------------|----------------------------------------------|----------------------------------------------------
+child               | Selects child elements                       | //div/child::a
+parent              | Selects the parent element                   | //a/parent::div
+following           | Selects elements after the current node      | //h1/following::p
+preceding           | Selects elements before the current node     | //p/preceding::h1
+following-sibling   | Selects the next sibling element             | //div/following-sibling::div
+preceding-sibling   | Selects the previous sibling element         | //div/preceding-sibling::div
+ancestor            | Selects all ancestor elements                | //span/ancestor::div
+descendant          | Selects all child and sub-child elements     | //div/descendant::span
+
+========================================================================================================================
+########################################################################################################################
+
+************************************************ WebDriver Commands ****************************************************
+
+WebDriver commands are used to interact with browsers and web elements using Selenium.
+
+Types of WebDriver commands
+
+1) Application Commands
+2) Conditional Commands
+3) Browser Commands
+4) Navigational Commands
+5) Wait Commands
+
+--------------------------------------------
+1) Application Commands
+--------------------------------------------
+These are used to open and get information from web pages.
+
+- get(url) → Opens the application URL
+    Example:
+    driver.get("https://www.flipkart.com")
+
+- title → Gets the title of the current web page
+    Example:
+    print(driver.title)
+
+- current_url → Gets the URL of the current web page
+    Example:
+    print(driver.current_url)
+
+- page_source → Gets the HTML source of the current page
+    Example:
+    print(driver.page_source)
+
+--------------------------------------------
+2) Conditional Commands
+--------------------------------------------
+These commands return True or False based on conditions.
+
+- is_displayed() → Checks if an element is visible on the page
+- is_enabled() → Checks if the element is enabled for interaction
+- is_selected() → Checks if the element is selected (mainly used with checkboxes or radio buttons)
+
+Example:
+login_btn = driver.find_element(By.ID, "login-button")
+print(login_btn.is_displayed())
+print(login_btn.is_enabled())
+
+--------------------------------------------
+3) Browser Commands
+--------------------------------------------
+These control the browser window.
+
+- close() → Closes the current browser tab where WebDriver is focused
+    Example:
+    driver.close()
+
+- quit() → Closes all browser windows and ends the WebDriver session
+    Example:
+    driver.quit()
+
+--------------------------------------------
+4) Navigational Commands
+--------------------------------------------
+These are used to navigate through browser history.
+
+- back() → Go back to the previous page
+- forward() → Go to the next page
+- refresh() → Reload the current page
+
+Example:
+driver.back()
+driver.forward()
+driver.refresh()
+
+--------------------------------------------
+5) find_element() vs find_elements()
+--------------------------------------------
+
+- find_element() → Finds the first matching web element
+    Example:
+    element = driver.find_element(By.NAME, "q")
+
+- find_elements() → Finds all matching web elements (returns a list)
+    Example:
+    elements = driver.find_elements(By.TAG_NAME, "a")
+
+--------------------------------------------
+6) text vs get_attribute('value')
+--------------------------------------------
+
+- text → Returns the inner text (the text visible to the user)
+- get_attribute('value') → Returns the value of the 'value' attribute (usually used with input boxes)
+
+Example:
+<input id='email' name='xyz'> Email: </input>
+
+- Using text:
+    element.text  → returns 'Email:'
+
+- Using get_attribute('value'):
+    input_box.get_attribute('value') → returns the value inside the input field
+
+Note: For input tags like <input>, the text inside them is not captured by .text. Use get_attribute('value') instead.
+========================================================================================================================
+************************************************************************************************************************
+
+############################################## Wait Commands in Selenium ###############################################
+
+Selenium provides different types of waits to handle delays while loading elements on web pages.
+
+------------------------------------------------
+1) time.sleep(seconds) – Static Wait
+------------------------------------------------
+This is a Python function that pauses the script for a fixed amount of time.
+
+Example:
+import time
+time.sleep(5)  # Waits for 5 seconds
+
+✅ Advantages:
+- Very simple to use
+
+❌ Disadvantages:
+- Poor performance: script waits even if the element is already available.
+- If the element does not appear in the given time, an exception may still occur.
+
+------------------------------------------------
+2) Implicit Wait
+------------------------------------------------
+Waits for a defined amount of time for elements to appear before throwing an error.
+
+Example:
+driver.implicitly_wait(10)  # Waits up to 10 seconds
+
+✅ Advantages:
+- Simple single-line setup
+- Improves performance: if the element appears early, execution continues immediately
+
+❌ Disadvantages:
+- If the element is not found within the time, an exception can still occur
+
+------------------------------------------------
+3) Explicit Wait
+------------------------------------------------
+Waits for a specific condition to occur before proceeding.
+
+Example:
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+wait = WebDriverWait(driver, 10)
+element = wait.until(EC.presence_of_element_located((By.ID, "login-button")))
+
+✅ Advantages:
+- More effective and precise: waits only until a specific condition is met
+
+❌ Disadvantages:
+- Requires more lines of code and needs to be written for each element separately
+- Can feel a bit complex for beginners
+
+------------------------------------------------
+Example – Getting All Footer Links (Flipkart):
+
+elements = driver.find_elements(By.XPATH, "//div[@class='footer']//a")
+for link in elements:
+    print(link.text)
+************************************************************************************************************************
+########################################################################################################################
+
+=============================================
