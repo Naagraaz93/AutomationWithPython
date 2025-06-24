@@ -22,6 +22,9 @@ options.add_experimental_option("detach", True)
 driver = webdriver.Chrome(options=options)
 driver.maximize_window()
 driver.get("https://intellipaat.com/")
+
+################### Sign Up #################################
+
 # time.sleep(2)
 # driver.find_element(By.XPATH," //a[@class='login-myact']").click()
 # time.sleep(3)
@@ -43,7 +46,7 @@ driver.get("https://intellipaat.com/")
 # driver.find_element(By.XPATH,"//a[@class='loggedinuser-btn']").click()
 # driver.find_element(By.XPATH,"//a[@class='logout']").click()
 
-#$### Again Login ##########
+#$### Login ##########
 
 driver.find_element(By.XPATH," //a[@class='login-myact']").click()
 
@@ -51,7 +54,13 @@ driver.find_element(By.XPATH,"(//input[@type='text'])[2]").send_keys("Naagraaz@y
 driver.find_element(By.XPATH,"(//input[@type='password'])").send_keys("Kumar@1234")
 driver.find_element(By.XPATH,"(//input[@type='submit'])").click()
 
-
+Title = driver.title
+print(Title)
+exp_title = "Signin - Intellipaat"
+if Title.strip() == exp_title:
+    print("Login Test Passed")
+else:
+    print("Login Test Failed")
 
 
 
